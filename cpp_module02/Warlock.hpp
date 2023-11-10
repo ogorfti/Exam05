@@ -6,7 +6,7 @@
 /*   By: ogorfti <ogorfti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:49:57 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/11/10 17:10:50 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/11/10 18:56:53 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 
 #include "Fwoosh.hpp"
 #include "ATarget.hpp"
+#include "SpellBook.hpp"
 
 class Warlock
 {
 	private:
 		std::string name;
 		std::string title;
-		std::vector <ASpell*> store;
+		// std::vector <ASpell*> store;
+		SpellBook* book;
 
 		Warlock();
 		Warlock(const Warlock& other);

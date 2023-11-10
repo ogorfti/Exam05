@@ -6,7 +6,7 @@
 /*   By: ogorfti <ogorfti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:49:54 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/11/10 17:10:56 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/11/10 19:02:27 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ Warlock::Warlock(const std::string& newName, const std::string& newTitle)
 {
 	this->name = newName;
 	this->title = newTitle;
+	this->book = new SpellBook;
 	std::cout << this->name << ": This looks like another boring day." << '\n';
 }
 
 Warlock::~Warlock()
 {
+	delete this->book;
 	std::cout << this->name << ": My job here is done!" << '\n';
 }
 
@@ -47,31 +49,16 @@ void Warlock::introduce() const
 
 void Warlock::learnSpell(ASpell* other)
 {
-	this->store.push_back(other->clone());
+	book->learnSpell(other->clone());
 }
 
 void Warlock::forgetSpell(std::string spellName)
 {
-	for (std::vector<ASpell*>::iterator it = store.begin(); it != store.end();)
-	{
-		ASpell* tmp = *it;
-		if (tmp->getName() == spellName)
-		{
-			it = store.erase(it);
-		}
-		else
-			++it;
-	}
+	book->forgetSpell(spellName);
 }
 
 void Warlock::launchSpell(std::string spellName, const ATarget& other)
 {
-	for (std::vector<ASpell*>::iterator it = store.begin(); it != store.end(); it++)
-	{
-		ASpell* tmp = *it;
-		if (tmp->getName() == spellName)
-		{
-			tmp->launch(other);
-		}
-	}
+	ASpell* spell = book->createSpell(spellName);
+	spell->launch(other);
 }

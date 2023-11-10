@@ -6,27 +6,36 @@
 /*   By: ogorfti <ogorfti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:16:48 by ogorfti           #+#    #+#             */
-/*   Updated: 2023/11/10 17:17:32 by ogorfti          ###   ########.fr       */
+/*   Updated: 2023/11/10 19:12:38 by ogorfti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ATarget.hpp"
-#include "ASpell.hpp"
-#include "Dummy.hpp"
 #include "Warlock.hpp"
+#include "BrickWall.hpp"
+#include "Polymorph.hpp"
+#include "TargetGenerator.hpp"
+#include "Fireball.hpp"
+
 
 int main()
 {
-  Warlock richard("Richard", "the Titled");
+  Warlock richard("Richard", "foo");
+  richard.setTitle("Hello, I'm Richard the Warlock!");
+  BrickWall model1;
 
-  Dummy bob;
-  Fwoosh* fwoosh = new Fwoosh();
+  Polymorph* polymorph = new Polymorph();
+  TargetGenerator tarGen;
 
-  richard.learnSpell(fwoosh);
+  tarGen.learnTargetType(&model1);
+  richard.learnSpell(polymorph);
+
+  Fireball* fireball = new Fireball();
+
+  richard.learnSpell(fireball);
+
+  ATarget* wall = tarGen.createTarget("Inconspicuous Red-brick Wall");
 
   richard.introduce();
-  richard.launchSpell("Fwoosh", bob);
-
-  richard.forgetSpell("Fwoosh");
-  richard.launchSpell("Fwoosh", bob);
+  richard.launchSpell("Polymorph", *wall);
+  richard.launchSpell("Fireball", *wall);
 }
